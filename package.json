@@ -1,0 +1,21 @@
+{
+  "name": "gitops-demo-app",
+  "version": "1.0.0",
+  "description": "Aplicacao de laboratorio para validar uma pipeline GitOps com GitHub Actions, GHCR e Argo CD.",
+  "main": "src/server.js",
+  "private": true,
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "express": "5.1.0"
+  },
+  "devDependencies": {
+    "supertest": "7.1.4"
+  }
+}
+

@@ -1,0 +1,9 @@
+.git
+.github
+argocd
+k8s
+node_modules
+npm-debug.log*
+tests
+README.md
+

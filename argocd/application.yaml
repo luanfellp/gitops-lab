@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitops-demo-app
+  namespace: argocd
+spec:
+  project: argocd-test
+  source:
+    repoURL: https://github.com/luanfellp/gitops-lab.git
+    targetRevision: main
+    path: k8s
+  destination:
+    server: https://192.168.200.79:6443
+    namespace: argocd-test
+  syncPolicy:
+    syncOptions:
+      - RespectIgnoreDifferences=true
+
