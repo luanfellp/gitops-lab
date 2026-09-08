@@ -1,49 +1,64 @@
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: gitops-demo-app
   namespace: argocd-test
   labels:
     app.kubernetes.io/name: gitops-demo-app
     app.kubernetes.io/part-of: gitops-lab
+
 spec:
   replicas: 1
+
   strategy:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 0
       maxSurge: 1
+
   selector:
     matchLabels:
       app.kubernetes.io/name: gitops-demo-app
+
   template:
     metadata:
       labels:
         app.kubernetes.io/name: gitops-demo-app
         app.kubernetes.io/part-of: gitops-lab
+
     spec:
       automountServiceAccountToken: false
+
       securityContext:
         runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
         seccompProfile:
           type: RuntimeDefault
+
       containers:
         - name: gitops-demo-app
-          image: ghcr.io/luanfellp/gitops-demo-app:c96ea2d8ad78781bb8ad53e12354f5f8eefe7728
+
+          image: ghcr.io/luanfellp/gitops-demo-app:3c9708e193218c82427ca12ff5c28e071dd86444
           imagePullPolicy: IfNotPresent
+
           ports:
             - name: http
               containerPort: 3000
               protocol: TCP
+
           env:
             - name: APP_ENV
               value: argocd-test
+
           securityContext:
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
-            readOnlyRootFilesystem: true
+
           resources:
             requests:
               cpu: 50m
@@ -51,12 +66,14 @@ spec:
             limits:
               cpu: 250m
               memory: 256Mi
+
           startupProbe:
             httpGet:
               path: /health
               port: http
             failureThreshold: 10
             periodSeconds: 2
+
           readinessProbe:
             httpGet:
               path: /ready
@@ -65,6 +82,7 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 2
             failureThreshold: 3
+
           livenessProbe:
             httpGet:
               path: /health
@@ -72,6 +90,7 @@ spec:
             periodSeconds: 15
             timeoutSeconds: 2
             failureThreshold: 3
-          terminationMessagePolicy: FallbackToLogsOnError
-      terminationGracePeriodSeconds: 15
 
+          terminationMessagePolicy: FallbackToLogsOnError
+
+      terminationGracePeriodSeconds: 15
