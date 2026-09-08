@@ -29,7 +29,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: gitops-demo-app
-          image: ghcr.io/luanfellp/gitops-demo-app:3c9708e193218c82427ca12ff5c28e071dd86444
+          image: ghcr.io/luanfellp/gitops-demo-app:c96ea2d8ad78781bb8ad53e12354f5f8eefe7728
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
