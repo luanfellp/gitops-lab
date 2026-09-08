@@ -40,7 +40,7 @@ spec:
       containers:
         - name: gitops-demo-app
 
-          image: ghcr.io/luanfellp/gitops-demo-app:3c9708e193218c82427ca12ff5c28e071dd86444
+          image: ghcr.io/luanfellp/gitops-demo-app:081b44580080b77c92998d4e7c30632a50020ffc
           imagePullPolicy: IfNotPresent
 
           ports:
