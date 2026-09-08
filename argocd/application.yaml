@@ -10,9 +10,8 @@ spec:
     targetRevision: main
     path: k8s
   destination:
-    server: https://192.168.200.79:6443
+    name: prod-argocd-test
     namespace: argocd-test
   syncPolicy:
     syncOptions:
       - RespectIgnoreDifferences=true
-
